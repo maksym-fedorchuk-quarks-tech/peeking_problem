@@ -32,3 +32,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Real Data .tsv
+some_real_data.tsv
