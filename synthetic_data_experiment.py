@@ -2,8 +2,8 @@ import numpy as np
 from scipy import stats
 
 # dataset params
-SIMULATIONS_NUM = 1000
-SAMPLE_SIZE = 500000
+SIMULATIONS_NUM = 10000
+SAMPLE_SIZE = 320000
 AVG_BUYERS_PERCENTAGE = 0.02
 
 # t-Test param (Minimum p-value we need to "accept the test").
@@ -36,12 +36,19 @@ def analyze_without_peeking(group1: np.ndarray, group2: np.ndarray) -> int:
     return p_value
 
 
-def analyze_with_peeking(group1: np.ndarray, group2: np.ndarray, step_size) -> list:
+def analyze_with_peeking(group1: np.ndarray, group2: np.ndarray, step_size=None) -> list:
     """Return list of all observed p-values, representing the results of peeking
-    at the data after every 'step_size' number of samples."""
+    at the data after every 'step_size' number of samples.
+    Default moments we going to 'peek' our test results are 100k, 150k and 200k observations."""
+
+    if step_size is None:
+        peeking_group_size = [100000 + 50000 * n for n in range(3)]
+    else:
+        peeking_group_size = range(step_size, len(group1) + 1, step_size)
+
     p_values = []
-    for i in range(step_size, len(group1) + 1, step_size):
-        t_stat, p_value = stats.ttest_ind(group1[:i], group2[:i])
+    for n in peeking_group_size:
+        t_stat, p_value = stats.ttest_ind(group1[:n], group2[:n])
         p_values.append(p_value)
 
     return p_values
@@ -54,7 +61,7 @@ if __name__ == "__main__":
     for i in range(SIMULATIONS_NUM):
         control_group, test_group = generate_synthetic_data(SAMPLE_SIZE, AVG_BUYERS_PERCENTAGE)
         p_value_non_peeking = analyze_without_peeking(control_group, test_group)
-        p_values_peeking = analyze_with_peeking(control_group, test_group, PEEKING_STEP_SIZE)
+        p_values_peeking = analyze_with_peeking(control_group, test_group)
 
         if p_value_non_peeking < ALPHA:
             non_peeking_significant_results += 1
