@@ -9,4 +9,4 @@ FROM (SELECT DISTINCT users.[registration_time] as registration_time,
                          ON buyers.user_id = users.id
                              AND buyers.[purchase_time] >= '2024-01-01'
 
-      WHERE users.[registration_time] BETWEEN '2024-01-01' AND '2024-02-01') AS antient_user_data;
+      WHERE users.[registration_time] BETWEEN '2024-01-01' AND '2024-02-01') AS some_user_data;
