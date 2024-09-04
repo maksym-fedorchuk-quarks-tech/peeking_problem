@@ -15,15 +15,15 @@ def get_and_split_users(df: pd.DataFrame, sample_size: int):
     split between groups. Return two numpy arrays."""
 
     sampled_df = df.sample(n=sample_size * 2, replace=False)
-    group_1 = sampled_df.iloc[:sample_size].sort_values(by=['user_id'])
-    group_2 = sampled_df.iloc[sample_size:].sort_values(by=['user_id'])
+    group_1 = sampled_df.iloc[:sample_size].sort_values(by=["user_id"])
+    group_2 = sampled_df.iloc[sample_size:].sort_values(by=["user_id"])
 
-    return group_1['is_buyer'].to_numpy(), group_2['is_buyer'].to_numpy()
+    return group_1["is_buyer"].to_numpy(), group_2["is_buyer"].to_numpy()
 
 
 if __name__ == "__main__":
 
-    users_data_df = pd.read_csv('some_real_data.tsv', sep='\t')
+    users_data_df = pd.read_csv("datasource/some_real_data.tsv", sep="\t")
     peeking_significant_results = 0
     non_peeking_significant_results = 0
 
