@@ -16,7 +16,6 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
 # Jupyter Notebook
 .ipynb_checkpoints
