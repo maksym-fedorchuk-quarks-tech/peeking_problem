@@ -2,7 +2,7 @@ import numpy as np
 from scipy import stats
 
 # dataset params
-SIMULATIONS_NUM = 10000
+SIMULATIONS_NUM = 1000
 SAMPLE_SIZE = 320000
 AVG_BUYERS_PERCENTAGE = 0.02
 
@@ -69,7 +69,7 @@ if __name__ == "__main__":
         if any(p < ALPHA for p in p_values_peeking):
             peeking_significant_results += 1
 
-        print(f"Iteration {i} of {SIMULATIONS_NUM}") if i % 1000 == 0 else None
+        print(f"Iteration {i} of {SIMULATIONS_NUM}") if i % 100 == 0 else None
 
     print(
         "-" * 80,
